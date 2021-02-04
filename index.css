@@ -4,24 +4,49 @@
 }
 
 #header {
-  background-color: lightpink;
-  height: 30vh;
+  background-color: #ffb6c1;
+  height: 25vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-#container {
-  background-color: black;
-  height: 70vh;
-  display: flex;
   justify-content: space-evenly;
   align-items: center;
 }
 
+#counter{
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  color: white;
+}
+
+.button{
+  background-color: #4c9baf;
+  color: black;
+  border: none;
+  padding: 13px 18px;
+  text-align: center;
+  outline: none;
+  font-size: 16px;
+  border-radius: 10px;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+.button:hover {background-color: cornflowerblue;}
+
+#container {
+  background-color: black;
+  display: grid;
+  justify-content: space-evenly;
+  align-content: center;
+  grid-template-columns: 190px 190px 190px;
+  grid-gap: 10px;
+  height: 69vh;
+}
+
 .tile {
-  height: 200px;
-  width: 200px;
+  height: 190px;
+  width: 190px;
   background-color: aliceblue;
 }
+

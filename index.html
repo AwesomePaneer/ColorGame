@@ -5,22 +5,31 @@
     <title>Color Game</title>
     <link rel="stylesheet" href="./index.css" />
   </head>
-  <body onload="newGame()">
+  <body bgcolor="black" onload="newGame()">
     <div id="header">
       <h2>The Great</h2>
       <h1 id="header-clue">rgb(xxx,xxx,xxx)</h1>
       <h2>Guessing Game</h2>
+      <button type="button" class="button" onclick="newGame()">New Game</button>
     </div>
     <div id="container">
       <div class="tile" id="1"></div>
       <div class="tile" id="2"></div>
+      <div class="tile" id="3"></div>
+      <div class="tile" id="4"></div>
+      <div class="tile" id="5"></div>
+      <div class="tile" id="6"></div>
+    </div> 
+    <div id="counter">
+      Number of tries = <span id="v">x</span>
     </div>
 
     <script>
-      var t1 = document.getElementById("1");
-      var t2 = document.getElementById("2");
       var x;
+      var numberOfTries;
       var correctColor;
+      var tileArray = document.querySelectorAll(".tile");
+      var flag = false;
 
       function getRandomColor() {
         var letters = "0123456789ABCDEF";
@@ -31,36 +40,44 @@
         return color;
       }
 
+      function allTileCorrect(){
+        tileArray.forEach(function(e){e.style.background=correctColor;})
+      }
+
       function newGame() {
-        t1.style.background = getRandomColor();
-        t2.style.background = getRandomColor();
+        document.getElementById("header").style.background = "#FFB6C1";
+        tileArray.forEach(function(e){e.style.background=getRandomColor();})
+        numberOfTries = 0;
 
-        x = Math.floor(Math.random() * 2 + 1);
+        x = Math.floor(Math.random() * 6);
 
-        if (x == 1) correctColor = t1.style.background;
-        else correctColor = t2.style.background;
+        correctColor = tileArray[x].style.background;
+
         /* console.log(x);
         console.log(correctColor); */
 
         document.getElementById("header-clue").innerHTML = correctColor;
+        updateCounter();
+        flag=false;
       }
 
-      t1.addEventListener("click", function () {
-        if (t1.style.background == correctColor) {
-          t2.style.background = correctColor;
-          document.getElementById("header").style.background = correctColor;
-        } else {
-          t1.style.background = "black";
-        }
-      });
+      function updateCounter(){
+        document.getElementById("v").innerHTML=numberOfTries;
+      }
 
-      t2.addEventListener("click", function () {
-        if (t2.style.background == correctColor) {
-          t1.style.background = correctColor;
+      tileArray.forEach(function(e){
+        e.addEventListener("click",function(){
+          if (e.style.background == correctColor) {
+          allTileCorrect();
           document.getElementById("header").style.background = correctColor;
+          if(flag==false){window.alert("Yay! You found the color after "+numberOfTries+" wrong tries.");}
+          flag = true;
         } else {
-          t2.style.background = "black";
+          if(e.style.background!="black"){numberOfTries++;}
+          e.style.background = "black";
         }
+        updateCounter();
+        });
       });
     </script>
   </body>
